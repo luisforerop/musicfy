@@ -1,7 +1,6 @@
-import { useRouter } from 'next/router'
-import { useMusicfyContext } from '@context'
-import React from 'react'
 import { AlbumCard, ArtistInfo } from '@components'
+import { useMusicfyContext } from '@context'
+import { useRouter } from 'next/router'
 
 export const Artist = () => {
   const { query } = useRouter()
@@ -11,11 +10,8 @@ export const Artist = () => {
 
   const { artists, albums } = useMusicfyContext()
   const artistData = artists?.find(({ name }) => name === artist)
-  const { image, name, songs, albums: albumsQuantity } = artistData ?? {}
 
   const artistAlbums = albums ? albums[artist] : []
-  console.log({ artistAlbums, albums, artist })
-
 
   if (!artistData) return null
 

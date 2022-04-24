@@ -1,6 +1,6 @@
 import { useMusicfyContext } from '@context';
+import { useGetSongs } from '@hooks';
 import { useRouter } from 'next/router';
-import React from 'react'
 
 export const Album = () => {
   const { query } = useRouter()
@@ -8,21 +8,23 @@ export const Album = () => {
   artist = artist?.replace(/-/g, ' ')
   album = album?.replace(/_/g, ' ')
 
-  const { albums } = useMusicfyContext()
+
+  const { albums, setCurrentSong } = useMusicfyContext()
   const albumData = albums ? albums[artist] : null
   const albumInfo = albumData?.find(({ name }) => name === album)
   const {
     artist: albumArtist,
     image,
     name,
+    id: albumId,
   } = albumInfo || {}
-  console.log({ albumData, albums, albumInfo })
 
+  const songs = useGetSongs({ by: 'ALBUM', artist, albumId })
 
   return (
     <div style={{
       display: 'grid',
-      gridTemplateColumns: '30vw 70vw',
+      gridTemplateColumns: '30% 70%',
     }}>
       <div style={{
         width: '30vw',
@@ -60,6 +62,21 @@ export const Album = () => {
         <h2>{albumArtist}</h2>
         <button>Reproducir</button>
         <button>Guardar</button>
+        <ol>
+          {songs?.map((song) => {
+            const { id, name } = song
+            return (
+              <li key={id}>
+                {name}
+                <button onClick={
+                  () => setCurrentSong(song)
+                } >
+                  Reproducir
+                </button>
+              </li>
+            )
+          })}
+        </ol>
       </div>
     </div>
   )

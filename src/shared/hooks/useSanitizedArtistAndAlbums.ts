@@ -1,4 +1,4 @@
-import type { Album, Albums, ApiAlbum, ApiAlbums, ApiArtist, ApiArtists, ApiSongs, Artist, Song } from '@models';
+import type { Album, Albums, ApiAlbum, ApiAlbums, ApiArtist, ApiArtists, ApiSongs, Artist } from '@models';
 import { useEffect, useState } from 'react';
 
 type SanitizedInformation = {
@@ -69,8 +69,6 @@ export const useSanitizedArtistAndAlbums: UseSanitizedArtistAndAlbums = ({
   }, [])
 
   useEffect(() => {
-    console.log({ apiArtists, apiSongs, apiAlbums })
-
     if (!artists && apiAlbums && apiArtists && apiSongs) {
       // Obtemos el objeto artist con las propiedades faltantes
       // Aprovechamos los bucles para obtener los albumes
@@ -93,12 +91,11 @@ export const useSanitizedArtistAndAlbums: UseSanitizedArtistAndAlbums = ({
           ...artist,
           albums: albumsQuantity,
           songs: songsQuantity,
+          albumsIds,
         })
       })
 
       setArtists(_artists)
-      console.log({ _artists })
-
       // localStorage.setItem('Artists', JSON.stringify(_artists))
     }
 

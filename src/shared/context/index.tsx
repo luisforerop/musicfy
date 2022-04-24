@@ -1,4 +1,4 @@
-import type { Albums, Artist, FC, Song } from '@models'
+import type { Albums, ApiAlbums, ApiSongs, Artist, FC, Song } from '@models'
 import type { Dispatch, SetStateAction } from 'react'
 import { createContext, useContext, useState } from 'react'
 import { useGetApiData } from '../hooks/useGetApiData'
@@ -7,7 +7,8 @@ import { useSanitizedArtistAndAlbums } from '../hooks/useSanitizedArtistAndAlbum
 interface IMusicfyContext {
   artists: Artist[] | null
   albums: Albums | null
-  // songs: Song[] | null
+  apiSongs: ApiSongs | null
+  apiAlbums: ApiAlbums | null
   // playlists: Playlists | null
   currentSong: Song | null
   setCurrentSong: Dispatch<SetStateAction<Song | null>>
@@ -34,6 +35,8 @@ export const MusicfyContextProvider: FC = ({ children }) => {
     albums,
     currentSong,
     setCurrentSong,
+    apiSongs,
+    apiAlbums,
   }
   return <Provider value={context}>
     {children}

@@ -1,15 +1,13 @@
-import { ArtistCard, Carousel, Section } from '@components';
+import { ArtistCard, Section } from '@components';
 import { useMusicfyContext } from '@context';
-import { useState, useEffect } from 'react';
 import type { Artist } from '@models';
+import { useEffect, useState } from 'react';
 
 export const Home = () => {
   const { artists } = useMusicfyContext()
   const [artistsToRender, setArtistsToRender] = useState<Artist[]>([])
 
   useEffect(() => {
-    console.log({ artists })
-
     if (artists) {
       setArtistsToRender(artists)
     }

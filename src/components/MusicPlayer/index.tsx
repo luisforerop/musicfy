@@ -1,16 +1,19 @@
 import React, { useRef } from 'react'
 import { useState } from 'react'
 import Slider from '@mui/material/Slider'
+import { useMusicfyContext } from '@context'
 
 export const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0)
   const [isPaused, setIsPaused] = useState(true)
   const audio = useRef<null | HTMLAudioElement>(null)
+
+  const { currentSong } = useMusicfyContext()
   return (
     <div style={{
       position: 'fixed',
       top: '90vh',
-      width: '100%',
+      width: '80vw',
       display: 'flex',
       justifyContent: 'center',
     }}>
@@ -44,7 +47,7 @@ export const MusicPlayer = () => {
       </button>
       <audio
         ref={audio}
-        src='https://p.scdn.co/mp3-preview/2ec09221ef6979e034c22ac7198056117850e744?cid=76ef95421e3a4e7aac6358eba6727257'
+        src={currentSong?.preview_url}
         controls
         preload='preload'
         id='test'
