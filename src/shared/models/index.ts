@@ -33,7 +33,7 @@ export type ApiAlbums = {
 }[]
 
 export interface Album extends ApiAlbum {
-  
+  artist: string
 }
 
 export interface ApiSong {
