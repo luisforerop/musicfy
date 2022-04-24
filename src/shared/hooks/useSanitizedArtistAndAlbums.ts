@@ -1,12 +1,12 @@
-import type { Album, ApiAlbum, ApiAlbums, ApiArtist, ApiArtists, ApiSongs, Artist, Song } from '@models';
+import type { Album, Albums, ApiAlbum, ApiAlbums, ApiArtist, ApiArtists, ApiSongs, Artist, Song } from '@models';
 import { useEffect, useState } from 'react';
 
 type SanitizedInformation = {
   artists: Artist[] | null
-  albums: Album[] | null
+  albums: Albums | null
 }
 
-type UseGetArtist = (apiInfo: {
+type UseSanitizedArtistAndAlbums = (apiInfo: {
   apiAlbums: ApiAlbums | null
   apiArtists: ApiArtists | null
   apiSongs: ApiSongs | null
@@ -53,13 +53,13 @@ const getAlbumsInfo = (apiAlbums: ApiAlbums, artist: ApiArtist) => {
   }
 }
 
-export const useGetArtist: UseGetArtist = ({
+export const useSanitizedArtistAndAlbums: UseSanitizedArtistAndAlbums = ({
   apiAlbums,
   apiArtists,
   apiSongs,
 }) => {
   const [artists, setArtists] = useState<Artist[] | null>(null)
-  const [albums, setAlbums] = useState<Album[] | null>(null)
+  const [albums, setAlbums] = useState<Albums | null>(null)
 
   useEffect(() => {
     const localArtist = localStorage.getItem('Artists')
@@ -73,11 +73,19 @@ export const useGetArtist: UseGetArtist = ({
 
     if (!artists && apiAlbums && apiArtists && apiSongs) {
       // Obtemos el objeto artist con las propiedades faltantes
-      // Aprovechamos los bucles para obtener los albumes y las canciones
+      // Aprovechamos los bucles para obtener los albumes
 
       const _artists: Artist[] = apiArtists.map((artist) => {
+        const { name } = artist
         const { albums, albumsIds, albumsQuantity, } = getAlbumsInfo(apiAlbums, artist)
-        setAlbums(prevAlbums => prevAlbums ? [...prevAlbums, ...albums] : albums)
+        setAlbums(prevAlbums => prevAlbums
+          ? {
+            ...prevAlbums,
+            [name]: albums
+          }
+          : {
+            [name]: albums
+          })
 
         const { songsQuantity } = getSongsInfo(apiSongs, albumsIds)
 

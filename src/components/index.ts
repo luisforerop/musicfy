@@ -1,4 +1,4 @@
-export * from './ArtistCard'
+export * from './ArtistComponents'
 export * from './Carousel'
 export * from './LabelCard'
 export * from './MusicPlayer'

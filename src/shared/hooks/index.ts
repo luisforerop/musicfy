@@ -1,3 +1,3 @@
 export * from './useGetApiData'
-export * from './useGetArtistAndAlbums'
+export * from './useSanitizedArtistAndAlbums'
 export * from './useGetSongs'

@@ -1,7 +1,7 @@
 import { Artist } from '@models'
-import Link from 'next/link';
-import React, { FC } from 'react'
-import { LabelCard } from '../LabelCard/index';
+import Link from 'next/link'
+import { FC } from 'react'
+
 
 interface ArtistCardProps extends Artist { }
 
@@ -11,7 +11,7 @@ export const ArtistCard: FC<ArtistCardProps> = ({ name, image, albums, songs }) 
   if (!image) return null
 
   return (
-    <Link href={name.replace(/ /, '-')}>
+    <Link href={name.replace(/ /g, '-').replace(/\//, '-')}>
       <a>
         <div style={{
           borderRadius: '5px',

@@ -36,6 +36,10 @@ export interface Album extends ApiAlbum {
   artist: string
 }
 
+export type Albums = {
+  [artist: string]: Album[]
+}
+
 export interface ApiSong {
   id: number
   name: string
