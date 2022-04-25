@@ -1,6 +1,7 @@
 import { useGetSongs, useManageMusicPlayer } from '@hooks';
 import { Artist, FC } from '@models';
 import Rating from '@mui/material/Rating';
+import Link from 'next/link';
 
 export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs, genres }) => {
   const songsData = useGetSongs({
@@ -35,7 +36,20 @@ export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs,
         }} />
       </div>
       <div>
-        <h1>{name}</h1>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+          <h1>{name}</h1>
+          <div>
+            <Link href={`/`}>
+              <a>Home</a>
+            </Link>
+            <div>Buscador</div>
+          </div>
+        </div>
         <Rating name="read-only" value={Number(popularity) / 20} readOnly precision={0.1} />
         <div></div>
         <button

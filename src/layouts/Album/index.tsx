@@ -1,16 +1,18 @@
+import { CompactDisc } from '@components';
 import { useMusicfyContext } from '@context';
 import { useGetSongs, useManageMusicPlayer } from '@hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export const Album = () => {
   const { query } = useRouter()
   let { artist, album } = query as { artist: string, album: string }
-  artist = artist === 'AC-DC' ? 'AC/DC' : artist?.replace(/-/g, ' ')
-  album = album?.replace(/_/g, ' ').replace(/qst/g, '?')
+  const sanitizedArtist = artist === 'AC-DC' ? 'AC/DC' : artist?.replace(/-/g, ' ')
+  const sanitizedAlbum = album?.replace(/_/g, ' ').replace(/qst/g, '?')
 
   const { albums } = useMusicfyContext()
-  const albumData = albums ? albums[artist] : null
-  const albumInfo = albumData?.find(({ name }) => name === album)
+  const albumData = albums ? albums[sanitizedArtist] : null
+  const albumInfo = albumData?.find(({ name }) => name === sanitizedAlbum)
   const {
     artist: albumArtist,
     image,
@@ -18,7 +20,7 @@ export const Album = () => {
     id: albumId,
   } = albumInfo || {}
 
-  const songs = useGetSongs({ by: 'ALBUM', artist, albumId })
+  const songs = useGetSongs({ by: 'ALBUM', artist: sanitizedArtist, albumId })
   const { playSong, addSong, newPlaylist } = useManageMusicPlayer()
 
   return (
@@ -47,7 +49,7 @@ export const Album = () => {
           }} />
         </div>
         <div style={{
-          backgroundColor: '#010',
+          // backgroundColor: '#010',
           width: '16vw',
           height: '16vw',
           borderRadius: '100%',
@@ -55,11 +57,41 @@ export const Album = () => {
           left: '12vw',
           zIndex: -1,
         }}>
+          <CompactDisc />
         </div>
       </div>
       <div>
-        <h1>{name}</h1>
-        <h2>{albumArtist}</h2>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <h1>{name}</h1>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '1rem',
+            }}
+          >
+            <Link href={`/`}>
+              <a>Home</a>
+            </Link>
+            <Link href={`/${artist}`}>
+              <a>Artista</a>
+            </Link>
+            <div>Buscador</div>
+          </div>
+        </div>
+        <Link href={`/${artist}`}>
+          <a>
+            <h2>{albumArtist}</h2>
+          </a>
+        </Link>
         <button
           onClick={() => songs && newPlaylist(songs)}
         >Reproducir</button>
@@ -75,7 +107,7 @@ export const Album = () => {
                 } >
                   Reproducir
                 </button>
-                
+
                 <button onClick={
                   () => addSong(song)
                 } >
