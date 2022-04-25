@@ -5,9 +5,8 @@ import { useRouter } from 'next/router';
 export const Album = () => {
   const { query } = useRouter()
   let { artist, album } = query as { artist: string, album: string }
-  artist = artist?.replace(/-/g, ' ')
-  album = album?.replace(/_/g, ' ')
-
+  artist = artist === 'AC-DC' ? 'AC/DC' : artist?.replace(/-/g, ' ')
+  album = album?.replace(/_/g, ' ').replace(/qst/g, '?')
 
   const { albums } = useMusicfyContext()
   const albumData = albums ? albums[artist] : null

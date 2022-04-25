@@ -8,7 +8,7 @@ export const AlbumCard: FC<Album> = ({
   artist,
 }) => {
   const artistUrl = artist.replace(/ /g, '-').replace(/\//g, '-')
-  const albumUrl = name.replace(/ /g, '_')
+  const albumUrl = name.replace(/ /g, '_').replace(/\?/g, 'qst')
   const href = `/${artistUrl}/${albumUrl}`
   return (
     <Link href={href}>
