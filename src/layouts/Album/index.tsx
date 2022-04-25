@@ -84,7 +84,6 @@ export const Album = () => {
             <Link href={`/${artist}`}>
               <a>Artista</a>
             </Link>
-            <div>Buscador</div>
           </div>
         </div>
         <Link href={`/${artist}`}>

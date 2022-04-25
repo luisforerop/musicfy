@@ -24,6 +24,7 @@ export const SearchButton: FC<SearchButtonProps> = ({ isOpen, setIsOpen }) => {
           border: 'none',
           outline: 'none',
         }}
+        id='search-button'
         onClick={() => setIsOpen(!isOpen)}
       >
         <SearchIcon stroke='white' strokeWidth='4' />

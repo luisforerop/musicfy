@@ -26,11 +26,9 @@ export const SearchBar: FC<SearchBarProps> = ({
   const [itemsToRender, setItemsToRender] = useState<{ [key: string]: any }[] | null>(null)
 
   const escapeListener = (e: KeyboardEvent) => {
-    const searchBarState = document
-      .getElementById('search-bar-container')
-      ?.getAttribute('search-bar-state')
+    console.log('hola');
 
-    if (e.key === 'Escape' && searchBarState === 'open')
+    if (e.key === 'Escape' && isOpen)
       document.getElementById('search-button')?.click()
   }
 
@@ -49,13 +47,15 @@ export const SearchBar: FC<SearchBarProps> = ({
   }, [])
 
   return (
-    <Fragment>
+    <div style={{
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      width: '100%',
+    }}>
       <div
         className={`${searchBarContainer} ${isOpen ? searchBarContainerOpen : ''}`}
         id='search-bar-container'
-        {...{
-          'search-bar-state': isOpen ? 'open' : 'close'
-        }}
       >
         <SearchButton
           setIsOpen={setIsOpen}
@@ -76,7 +76,7 @@ export const SearchBar: FC<SearchBarProps> = ({
         itemsToRender={itemsToRender}
         ItemContainer={ItemContainer}
       />
-    </Fragment>
+    </div>
 
   )
 }

@@ -1,3 +1,4 @@
+import { SearchBar, SongSearchBarItem } from '@components';
 import { useGetSongs, useManageMusicPlayer } from '@hooks';
 import { Artist, FC } from '@models';
 import Rating from '@mui/material/Rating';
@@ -43,11 +44,18 @@ export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs,
           justifyContent: 'space-between',
         }}>
           <h1>{name}</h1>
-          <div>
+          <div style={{
+            display: 'flex',
+          }}>
             <Link href={`/`}>
               <a>Home</a>
             </Link>
-            <div>Buscador</div>
+            <SearchBar
+              items={songsData ?? []}
+              ItemContainer={SongSearchBarItem}
+              propToLookingFor={'name'}
+            />
+
           </div>
         </div>
         <Rating name="read-only" value={Number(popularity) / 20} readOnly precision={0.1} />

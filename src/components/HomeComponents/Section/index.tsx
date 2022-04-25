@@ -50,22 +50,15 @@ export const Section: FC<SectionProps> = ({
         }}
       >
         <h1>{title}</h1>
-        <div style={{
-          position: 'relative',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          width: '100%',
-        }}>
-          {
-            itemsList.length > 0 ?
-              <SearchBar
-                items={itemsList}
-                ItemContainer={CardForSearchBar}
-                propToLookingFor={propToLookingFor}
-              /> :
-              null
-          }
-        </div>
+        {
+          itemsList.length > 0 ?
+            <SearchBar
+              items={itemsList}
+              ItemContainer={CardForSearchBar}
+              propToLookingFor={propToLookingFor}
+            /> :
+            null
+        }
       </header>
       {
         itemsList.length > 0 ?

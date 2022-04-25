@@ -6,4 +6,4 @@ export * from './Icons'
 export * from './LabelCard'
 export * from './MusicPlayer'
 export * from './SearchBar'
-
+export * from './SongsComponents'
