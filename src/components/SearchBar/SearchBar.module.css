@@ -1,0 +1,101 @@
+.searchBarContainer {
+  background-color: var(--background-primary);
+  width: 40px;
+  height: 35px;
+  transition: width 0.5s ease-in-out;
+  overflow: hidden;
+  border-radius: 15px;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.searchBarContainerOpen {
+  width: 250px;
+}
+
+.searchButtonContainer {
+  display: flex;
+  align-items: center;
+  min-width: 30px;
+}
+
+.searchInput {
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  width: 200px;
+  background-color: var(--background-primary);
+  color: var(--text-primary-color);
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+}
+
+.searchListContainer {
+  list-style: none;
+  position: absolute;
+  background-color: var(--background-secondary-contrast);
+  width: 250px;
+  border-radius: 5px;
+  margin: 0;
+  margin-top: 5px;
+  max-height: 85vh;
+  overflow-y: scroll;
+  transition: height 0.5s ease-in-out;
+  height: 0;
+  top: 35px;
+}
+
+.searchListContainerOpen {
+  border: 1px solid var(--primary-color);
+  height: auto;
+  padding: 0 10px;
+}
+
+.searchListContainer::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.searchListContainer::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+
+.searchListContainer::-webkit-scrollbar-button:increment,
+.searchListContainer::-webkit-scrollbar-button {
+  display: none;
+}
+
+.searchListContainer::-webkit-scrollbar-thumb {
+  background-color: var(--background-primary-contrast);
+  border-radius: 20px;
+  border: 1px solid var(--background-secondary-contrast);
+}
+
+.searchListContainer::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.searchListContainer li {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .searchListContainer {
+    width: 250px;
+  }
+}
+
+@media (max-width: 500px) {
+  .searchBarContainerOpen {
+    width: 200px;
+    margin-left: 10px;
+  }
+
+  .searchListContainer {
+    width: 200px;
+  }
+
+  .searchInput {
+    width: 150px;
+  }
+}

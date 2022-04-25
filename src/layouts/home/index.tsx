@@ -1,4 +1,4 @@
-import { ArtistCard, Section } from '@components';
+import { ArtistCard, ArtistItemList, Section } from '@components';
 import { useMusicfyContext } from '@context';
 import type { Artist } from '@models';
 import { useEffect, useState } from 'react';
@@ -21,22 +21,24 @@ export const Home = () => {
     <div >
       <header>
         <h1>MUSICFY</h1>
-        search
       </header>
       <Section
         title='Tus favoritos'
         Container={ArtistCard}
-        itemsList={artistsToRender}
+        itemsList={[]}
       />
       <Section
         title='Artistas'
         Container={ArtistCard}
         itemsList={artistsToRender}
+        showLoaders
+        CardForSearchBar={ArtistItemList}
+        propToLookingFor='name'
       />
       <Section
         title='Tus listas de reproducción'
         Container={ArtistCard}
-        itemsList={artistsToRender}
+        itemsList={[]}
       />
     </div>
   )

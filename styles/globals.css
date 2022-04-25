@@ -14,3 +14,14 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --primary-color: #181F29;
+  --secondary-color: #0070f3;
+  --background-primary: #181F29;
+  --background-primary-contrast: #29303A;
+  --background-secondary-contrast: #111820;
+  --text-primary-color: #FFFFFF;
+  --text-secondary-color: #F5F8FF;
+  --link-color: #0070f3;
+}
