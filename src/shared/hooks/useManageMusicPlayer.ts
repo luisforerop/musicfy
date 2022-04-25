@@ -16,7 +16,7 @@ export const useManageMusicPlayer = () => {
 
 
 
-  const delayPlay = () => {
+  const delayedPlay = () => {
     setTimeout(() => {
       setPlaying(true)
       musicPlayer && musicPlayer.play()
@@ -30,7 +30,7 @@ export const useManageMusicPlayer = () => {
         currentPlaylist && setCurrentSong(currentPlaylist[newSongId])
         return newSongId
       })
-      delayPlay()
+      delayedPlay()
     } else {
       setPlaying(false)
       if (musicPlayer) musicPlayer.currentTime = 0
@@ -44,7 +44,7 @@ export const useManageMusicPlayer = () => {
       setCurrentSongId(curr => {
         const newSongId = curr - 1
         currentPlaylist && setCurrentSong(currentPlaylist[newSongId])
-        delayPlay()
+        delayedPlay()
         return newSongId
       })
     }
@@ -53,14 +53,15 @@ export const useManageMusicPlayer = () => {
   const newPlaylist = (playlist: Song[]) => {
     setCurrentPlaylist(playlist)
     setCurrentSongId(0)
-    setPlaying(true)
+    setCurrentSong(playlist[0])
+    delayedPlay()
   }
 
   const playSong = (song: Song) => {
     setCurrentPlaylist([song])
     setCurrentSongId(0)
     setCurrentSong(song)
-    delayPlay()
+    delayedPlay()
   }
 
   const addSong = (song: Song) => {
@@ -71,7 +72,7 @@ export const useManageMusicPlayer = () => {
     if (currentPlaylist) {
       if (!currentSong) {
         setCurrentSong(currentPlaylist[0])
-        delayPlay()
+        delayedPlay()
       } else {
         setPlaying(true)
         musicPlayer && musicPlayer.play()

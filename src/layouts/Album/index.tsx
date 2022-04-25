@@ -20,7 +20,7 @@ export const Album = () => {
   } = albumInfo || {}
 
   const songs = useGetSongs({ by: 'ALBUM', artist, albumId })
-  const { playSong, addSong } = useManageMusicPlayer()
+  const { playSong, addSong, newPlaylist } = useManageMusicPlayer()
 
   return (
     <div style={{
@@ -61,7 +61,9 @@ export const Album = () => {
       <div>
         <h1>{name}</h1>
         <h2>{albumArtist}</h2>
-        <button>Reproducir</button>
+        <button
+          onClick={() => songs && newPlaylist(songs)}
+        >Reproducir</button>
         <button>Guardar</button>
         <ol>
           {songs?.map((song) => {

@@ -1,8 +1,16 @@
-import { Artist, FC } from '@models'
-import React from 'react'
-import Rating from '@mui/material/Rating'
+import { useGetSongs, useManageMusicPlayer } from '@hooks';
+import { Artist, FC } from '@models';
+import Rating from '@mui/material/Rating';
 
 export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs, genres }) => {
+  const songsData = useGetSongs({
+    by: 'ARTIST',
+    artist: name,
+  })
+
+  const { newPlaylist } = useManageMusicPlayer()
+
+
   return (
     <div style={{
       display: 'flex',
@@ -28,9 +36,11 @@ export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs,
       </div>
       <div>
         <h1>{name}</h1>
-        <Rating name="read-only" value={Number(popularity)/20} readOnly precision={0.1} />
+        <Rating name="read-only" value={Number(popularity) / 20} readOnly precision={0.1} />
         <div></div>
-        <button>Reproducir Artista</button>
+        <button
+          onClick={() => songsData && newPlaylist(songsData)}
+        >Reproducir Artista</button>
         <div></div>
         <span>Álbumes: {albums}</span>
         <div></div>

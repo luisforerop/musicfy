@@ -29,8 +29,7 @@ export const MusicPlayer = () => {
 
   return (
     <div style={{
-      // position: 'fixed',
-      // top: '90vh',
+      overflow: 'hidden',
       height: '15vh',
       width: '100vw',
       display: 'flex',
