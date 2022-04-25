@@ -1,25 +1,46 @@
-import React, { useRef } from 'react'
-import { useState } from 'react'
+import { useMusicPlayerContext } from '@context'
+import { useManageMusicPlayer } from '@hooks'
 import Slider from '@mui/material/Slider'
-import { useMusicfyContext } from '@context'
+import { useEffect, useRef, useState } from 'react'
 
 export const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0)
-  const [isPaused, setIsPaused] = useState(true)
   const audio = useRef<null | HTMLAudioElement>(null)
 
-  const { currentSong } = useMusicfyContext()
+  const { setMusicPlayer } = useMusicPlayerContext()
+
+  const {
+    currentSong,
+    currentPlaylist,
+    playSong,
+    playing,
+    addSong,
+    currentSongId,
+    newPlaylist,
+    next,
+    previous,
+    pause,
+    play,
+  } = useManageMusicPlayer()
+
+  useEffect(() => {
+    setMusicPlayer(audio.current)
+  }, [setMusicPlayer])
+
   return (
     <div style={{
-      position: 'fixed',
-      top: '90vh',
-      width: '80vw',
+      // position: 'fixed',
+      // top: '90vh',
+      height: '15vh',
+      width: '100vw',
       display: 'flex',
+      backgroundColor: '#ff4',
       justifyContent: 'center',
     }}>
       <div style={{
-        backgroundColor: '#ff4',
+        backgroundColor: '#2f4',
       }}>
+        {currentSongId + '||'}
         {currentTime}
       </div>
       <Slider
@@ -35,16 +56,21 @@ export const MusicPlayer = () => {
 
       />
       <button onClick={() => {
-        if (isPaused) {
-          audio.current?.play()
-          setIsPaused(false)
+        if (!playing) {
+          play()
         } else {
-          audio.current?.pause()
-          setIsPaused(true)
+          pause()
         }
       }}>
-        {isPaused ? 'Play' : 'Pause'}
+        {!playing ? 'Play' : 'Pause'}
       </button>
+      <button onClick={next} >Next</button>
+      <button onClick={previous} >Back</button>
+      <div></div>
+      {currentSong?.name}
+      <div></div>
+      Playlist
+      {currentPlaylist?.map(song => song.name).join(', ')}
       <audio
         ref={audio}
         src={currentSong?.preview_url}
@@ -54,6 +80,9 @@ export const MusicPlayer = () => {
         onTimeUpdate={(e: any) => {
           const { currentTime } = e.target as { currentTime: number }
           setCurrentTime(currentTime)
+        }}
+        onEnded={() => {
+          next()
         }}
         style={{
           display: 'none',

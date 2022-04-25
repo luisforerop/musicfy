@@ -1,5 +1,5 @@
 import { useMusicfyContext } from '@context';
-import { useGetSongs } from '@hooks';
+import { useGetSongs, useManageMusicPlayer } from '@hooks';
 import { useRouter } from 'next/router';
 
 export const Album = () => {
@@ -9,7 +9,7 @@ export const Album = () => {
   album = album?.replace(/_/g, ' ')
 
 
-  const { albums, setCurrentSong } = useMusicfyContext()
+  const { albums } = useMusicfyContext()
   const albumData = albums ? albums[artist] : null
   const albumInfo = albumData?.find(({ name }) => name === album)
   const {
@@ -20,6 +20,7 @@ export const Album = () => {
   } = albumInfo || {}
 
   const songs = useGetSongs({ by: 'ALBUM', artist, albumId })
+  const { playSong, addSong } = useManageMusicPlayer()
 
   return (
     <div style={{
@@ -69,9 +70,15 @@ export const Album = () => {
               <li key={id}>
                 {name}
                 <button onClick={
-                  () => setCurrentSong(song)
+                  () => playSong(song)
                 } >
                   Reproducir
+                </button>
+                
+                <button onClick={
+                  () => addSong(song)
+                } >
+                  Añadir
                 </button>
               </li>
             )

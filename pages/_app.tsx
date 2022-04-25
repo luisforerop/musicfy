@@ -1,21 +1,23 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { MusicfyContextProvider } from '@context'
+import { MusicfyContextProvider, MusicPlayerContextProvider } from '@context'
 import { MusicPlayer } from '@components'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MusicfyContextProvider>
-      <main style={{
-      position: 'relative',
-      width: '100vw',
-      height: '100vh',
-      overflowY: 'scroll',
-      padding: '10px',
-    }}>
-        <Component {...pageProps} />
+      <MusicPlayerContextProvider>
+        <main style={{
+          position: 'relative',
+          width: '100vw',
+          height: '85vh',
+          overflowY: 'scroll',
+          padding: '10px',
+        }}>
+          <Component {...pageProps} />
+        </main>
         <MusicPlayer />
-      </main>
+      </MusicPlayerContextProvider>
     </MusicfyContextProvider>
   )
 }
