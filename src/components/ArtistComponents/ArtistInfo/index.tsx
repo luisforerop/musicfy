@@ -4,6 +4,7 @@ import { Artist, FC } from '@models'
 import Rating from '@mui/material/Rating'
 import Link from 'next/link'
 import styles from './ArtistInfo.module.css'
+import { useState, useEffect } from 'react';
 
 const {
   container,
@@ -15,13 +16,19 @@ const {
 } = styles
 
 export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs, genres }) => {
+  const [formatGenres, setFormatGenres] = useState('')
+
   const songsData = useGetSongs({
     by: 'ARTIST',
     artist: name,
   })
 
   const { newPlaylist } = useManageMusicPlayer()
-  const formatGenres = new Intl.ListFormat('es').format(genres)
+
+  useEffect(() => {
+    const _formatGenres = genres.join(', ') // new Intl.ListFormat('es').format(genres)
+    setFormatGenres(_formatGenres)
+  }, [genres])
 
   return (
     <div className={container} >
