@@ -9,7 +9,7 @@ const {
 } = styles
 
 
-export const Artist = () => {
+export const ArtistLayout = () => {
   const { query } = useRouter()
   const artistQuery = query.artist as string
   let artist = artistQuery?.replace(/-/g, ' ')

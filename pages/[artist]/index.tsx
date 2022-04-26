@@ -1,9 +1,9 @@
-import { Artist } from '@layouts'
+import { ArtistLayout } from '@layouts'
 import React from 'react'
 
 const ArtistPage = () => {
   return (
-    <Artist />
+    <ArtistLayout />
   )
 }
 
