@@ -1,4 +1,4 @@
-import { Album, FC } from '@models'
+import { IAlbum, FC } from '@models'
 import Link from 'next/link'
 import React from 'react'
 import styles from './AlbumCard.module.css'
@@ -8,7 +8,7 @@ const {
   imageContainer,
 } = styles
 
-export const AlbumCard: FC<Album> = ({
+export const AlbumCard: FC<IAlbum> = ({
   name,
   image,
   artist,

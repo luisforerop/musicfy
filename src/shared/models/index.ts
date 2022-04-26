@@ -14,7 +14,7 @@ export interface ApiArtist {
 
 export type ApiArtists = ApiArtist[]
 
-export interface Artist extends ApiArtist {
+export interface IArtist extends ApiArtist {
   songs: number
   albums: number
   albumsIds: number[]
@@ -33,12 +33,12 @@ export type ApiAlbums = {
   albums: ApiAlbum[]
 }[]
 
-export interface Album extends ApiAlbum {
+export interface IAlbum extends ApiAlbum {
   artist: string
 }
 
 export type Albums = {
-  [artist: string]: Album[]
+  [artist: string]: IAlbum[]
 }
 
 export interface ApiSong {

@@ -1,6 +1,6 @@
 import { Home, SearchBar, SongSearchBarItem } from '@components'
 import { useGetSongs, useManageMusicPlayer } from '@hooks'
-import { Artist, FC } from '@models'
+import { IArtist, FC } from '@models'
 import Rating from '@mui/material/Rating'
 import Link from 'next/link'
 import styles from './ArtistInfo.module.css'
@@ -15,7 +15,7 @@ const {
   iconsContainer,
 } = styles
 
-export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs, genres }) => {
+export const ArtistInfo: FC<IArtist> = ({ name, albums, image, popularity, songs, genres }) => {
   const [formatGenres, setFormatGenres] = useState('')
 
   const songsData = useGetSongs({

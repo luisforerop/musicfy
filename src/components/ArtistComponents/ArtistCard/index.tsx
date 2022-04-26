@@ -1,4 +1,4 @@
-import { Artist } from '@models'
+import { IArtist } from '@models'
 import Rating from '@mui/material/Rating'
 import Link from 'next/link'
 import { FC } from 'react'
@@ -12,7 +12,7 @@ const {
   ratingContainer,
 } = styles
 
-export const ArtistCard: FC<Artist> = ({ name, image, albums, songs, popularity }) => {
+export const ArtistCard: FC<IArtist> = ({ name, image, albums, songs, popularity }) => {
   if (!image) return null
 
   return (

@@ -1,10 +1,10 @@
-import type { Albums, ApiAlbums, ApiSongs, Artist, FC } from '@models'
+import type { Albums, ApiAlbums, ApiSongs, IArtist, FC } from '@models'
 import { createContext, useContext } from 'react'
 import { useGetApiData } from '../hooks/useGetApiData'
 import { useSanitizedArtistAndAlbums } from '../hooks/useSanitizedArtistAndAlbums'
 
 interface IMusicfyContext {
-  artists: Artist[] | null
+  artists: IArtist[] | null
   albums: Albums | null
   apiSongs: ApiSongs | null
   apiAlbums: ApiAlbums | null

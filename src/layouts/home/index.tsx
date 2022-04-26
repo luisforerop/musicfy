@@ -1,11 +1,11 @@
 import { ArtistCard, ArtistItemList, Section } from '@components';
 import { useMusicfyContext } from '@context';
-import type { Artist } from '@models';
+import type { IArtist } from '@models';
 import { useEffect, useState } from 'react';
 
 export const Home = () => {
   const { artists } = useMusicfyContext()
-  const [artistsToRender, setArtistsToRender] = useState<Artist[]>([])
+  const [artistsToRender, setArtistsToRender] = useState<IArtist[]>([])
 
   useEffect(() => {
     if (artists) {

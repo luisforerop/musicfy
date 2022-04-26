@@ -1,4 +1,4 @@
-import { ApiAlbums, ApiArtists, ApiSongs, Artist, Song } from '@models';
+import { ApiAlbums, ApiArtists, ApiSongs, IArtist, Song } from '@models';
 import { useEffect, useState } from 'react';
 import { useMusicfyContext } from '@context';
 

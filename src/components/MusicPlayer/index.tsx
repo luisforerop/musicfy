@@ -78,7 +78,9 @@ export const MusicPlayer = () => {
           </span>
         </div>
       </div>
-      <div></div>
+      <div>
+        Cositas
+      </div>
       <audio
         ref={audio}
         src={currentSong?.preview_url}

@@ -1,7 +1,7 @@
-import { Artist, FC } from "@models";
+import { IArtist, FC } from "@models";
 import Link from "next/link";
 
-export const ArtistItemList: FC<Artist> = ({ name, image }) => {
+export const ArtistItemList: FC<IArtist> = ({ name, image }) => {
   if (!image) return null;
 
   return (

@@ -1,8 +1,8 @@
-import type { Album, Albums, ApiAlbum, ApiAlbums, ApiArtist, ApiArtists, ApiSongs, Artist } from '@models';
+import type { IAlbum, Albums, ApiAlbum, ApiAlbums, ApiArtist, ApiArtists, ApiSongs, IArtist } from '@models';
 import { useEffect, useState } from 'react';
 
 type SanitizedInformation = {
-  artists: Artist[] | null
+  artists: IArtist[] | null
   albums: Albums | null
 }
 
@@ -39,7 +39,7 @@ const getAlbumsInfo = (apiAlbums: ApiAlbums, artist: ApiArtist) => {
 
   const albumsData: ApiAlbum[] = Object.values(albumsDataObject)
 
-  const albums: Album[] = albumsData?.map(albumData => ({
+  const albums: IAlbum[] = albumsData?.map(albumData => ({
     ...albumData,
     artist: name,
   }))
@@ -58,7 +58,7 @@ export const useSanitizedArtistAndAlbums: UseSanitizedArtistAndAlbums = ({
   apiArtists,
   apiSongs,
 }) => {
-  const [artists, setArtists] = useState<Artist[] | null>(null)
+  const [artists, setArtists] = useState<IArtist[] | null>(null)
   const [albums, setAlbums] = useState<Albums | null>(null)
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export const useSanitizedArtistAndAlbums: UseSanitizedArtistAndAlbums = ({
       // Obtemos el objeto artist con las propiedades faltantes
       // Aprovechamos los bucles para obtener los albumes
 
-      const _artists: Artist[] = apiArtists.map((artist) => {
+      const _artists: IArtist[] = apiArtists.map((artist) => {
         const { name } = artist
         const { albums, albumsIds, albumsQuantity, } = getAlbumsInfo(apiAlbums, artist)
         setAlbums(prevAlbums => prevAlbums
