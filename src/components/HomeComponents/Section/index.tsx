@@ -20,8 +20,8 @@ const Loader = () => (
     width={200}
     height={300}
     viewBox="0 0 200 300"
-    backgroundColor="#f3f3f3"
-    foregroundColor="#ecebeb"
+    backgroundColor="var(--background-primary-contrast)"
+    foregroundColor="var(--background-secondary-contrast)"
   >
     <rect x="0" y="0" rx="3" ry="3" width="200" height="200" />
     <rect x="0" y="210" rx="3" ry="3" width="200" height="25" />

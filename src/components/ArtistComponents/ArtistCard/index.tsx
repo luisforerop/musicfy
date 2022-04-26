@@ -1,30 +1,25 @@
 import { Artist } from '@models'
+import Rating from '@mui/material/Rating'
 import Link from 'next/link'
 import { FC } from 'react'
-
-
-interface ArtistCardProps extends Artist { }
+import styles from './ArtistCard.module.css'
 
 // estrallas usando el popularity
 
-export const ArtistCard: FC<ArtistCardProps> = ({ name, image, albums, songs }) => {
+const {
+  cardContainer,
+  imageContainer,
+  ratingContainer,
+} = styles
+
+export const ArtistCard: FC<Artist> = ({ name, image, albums, songs, popularity }) => {
   if (!image) return null
 
   return (
     <Link href={name.replace(/ /g, '-').replace(/\//, '-')}>
       <a>
-        <div style={{
-          borderRadius: '5px',
-          overflow: 'hidden',
-          backgroundColor: '#ff4',
-          height: 'calc(100% - 20px)',
-          margin: '10px 0',
-          maxWidth: '200px',
-        }}>
-          <div style={{
-            width: '200px',
-            height: '200px',
-          }}>
+        <div className={cardContainer}>
+          <div className={imageContainer}>
             {/*eslint-disable-next-line @next/next/no-img-element*/}
             <img src={image} alt={name} style={{
               width: '100%',
@@ -33,6 +28,15 @@ export const ArtistCard: FC<ArtistCardProps> = ({ name, image, albums, songs }) 
             }} />
           </div>
           <h2>{name}</h2>
+          <div className={ratingContainer}>
+            <Rating
+              name="read-only"
+              value={Number(popularity) / 20}
+              readOnly
+              precision={0.1}
+              size='small'
+            />
+          </div>
           <span>Álbumes: {albums}</span>
           <span>Canciones: {songs}</span>
         </div>

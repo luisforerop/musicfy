@@ -1,10 +1,31 @@
 import { useMusicPlayerContext } from '@context'
 import { useManageMusicPlayer } from '@hooks'
 import Slider from '@mui/material/Slider'
+import { CompactDisc, Previous, Next, Pause, Play } from '@components'
 import { useEffect, useRef, useState } from 'react'
+import styles from './MusicPlayer.module.css'
+import { Controls } from './Controls'
+
+const {
+  container,
+  compactDiscContainer,
+  progressBar,
+  progressBarContainer
+} = styles
+
+const formatTime = (time: number | string, inSeconds?: boolean) => {
+  console.log({ time });
+
+  if (!time) return '00:00'
+  time = inSeconds ? Number(time) : Number(time) / 1000
+  const minutes = Math.floor(time / 60)
+  const seconds = Math.floor(time % 60)
+  return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+}
 
 export const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0)
+  const [currentTimeFormated, setCurrentTimeFormated] = useState('00:00')
   const audio = useRef<null | HTMLAudioElement>(null)
 
   const { setMusicPlayer } = useMusicPlayerContext()
@@ -12,64 +33,52 @@ export const MusicPlayer = () => {
   const {
     currentSong,
     currentPlaylist,
-    playSong,
     playing,
-    addSong,
-    currentSongId,
-    newPlaylist,
     next,
-    previous,
-    pause,
-    play,
   } = useManageMusicPlayer()
+
+  const duration = formatTime(currentSong?.duration_ms ?? 0)
 
   useEffect(() => {
     setMusicPlayer(audio.current)
   }, [setMusicPlayer])
 
-  return (
-    <div style={{
-      overflow: 'hidden',
-      height: '15vh',
-      width: '100vw',
-      display: 'flex',
-      backgroundColor: '#ff4',
-      justifyContent: 'center',
-    }}>
-      <div style={{
-        backgroundColor: '#2f4',
-      }}>
-        {currentSongId + '||'}
-        {currentTime}
-      </div>
-      <Slider
-        onChange={(_, value) => {
-          if (audio.current && typeof value === 'number') {
-            audio.current.currentTime = value
-          }
-        }}
-        valueLabelDisplay="on"
-        step={0.0000001}
-        max={30}
-        value={currentTime}
+  useEffect(() => {
+    const _formatedTime = formatTime(currentTime, true)
+    setCurrentTimeFormated(_formatedTime)
+  }, [currentTime])
 
-      />
-      <button onClick={() => {
-        if (!playing) {
-          play()
-        } else {
-          pause()
-        }
-      }}>
-        {!playing ? 'Play' : 'Pause'}
-      </button>
-      <button onClick={next} >Next</button>
-      <button onClick={previous} >Back</button>
+
+  return (
+    <div className={container} >
+      <div className={compactDiscContainer}>
+        <CompactDisc />
+      </div>
+      <Controls playing={playing} />
+      <div className={progressBarContainer}>
+        <h3>{currentSong?.name}</h3>
+        <div className={progressBar}>
+          <span>
+            {currentTimeFormated}
+          </span>
+          <div>
+            <Slider
+              onChange={(_, value) => {
+                if (audio.current && typeof value === 'number') {
+                  audio.current.currentTime = value
+                }
+              }}
+              step={0.0000001}
+              max={30}
+              value={currentTime}
+            />
+          </div>
+          <span>
+            {duration}
+          </span>
+        </div>
+      </div>
       <div></div>
-      {currentSong?.name}
-      <div></div>
-      Playlist
-      {currentPlaylist?.map(song => song.name).join(', ')}
       <audio
         ref={audio}
         src={currentSong?.preview_url}

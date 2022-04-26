@@ -1,6 +1,12 @@
 import { Album, FC } from '@models'
 import Link from 'next/link'
 import React from 'react'
+import styles from './AlbumCard.module.css'
+
+const {
+  container,
+  imageContainer,
+} = styles
 
 export const AlbumCard: FC<Album> = ({
   name,
@@ -13,19 +19,10 @@ export const AlbumCard: FC<Album> = ({
   return (
     <Link href={href}>
       <a>
-        <div>
-          <div style={{
-            borderRadius: '10px',
-            overflow: 'hidden',
-            height: '200px',
-            width: '200px',
-          }} >
+        <div className={container}>
+          <div className={imageContainer} >
             {/*eslint-disable-next-line @next/next/no-img-element*/}
-            <img src={image} alt="" style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }} />
+            <img src={image} alt="" />
           </div>
           <h2>{name}</h2>
           <span>{artist}</span>

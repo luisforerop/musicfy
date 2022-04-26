@@ -1,8 +1,18 @@
-import { SearchBar, SongSearchBarItem } from '@components';
-import { useGetSongs, useManageMusicPlayer } from '@hooks';
-import { Artist, FC } from '@models';
-import Rating from '@mui/material/Rating';
-import Link from 'next/link';
+import { Home, SearchBar, SongSearchBarItem } from '@components'
+import { useGetSongs, useManageMusicPlayer } from '@hooks'
+import { Artist, FC } from '@models'
+import Rating from '@mui/material/Rating'
+import Link from 'next/link'
+import styles from './ArtistInfo.module.css'
+
+const {
+  container,
+  imageContainer,
+  headerContainer,
+  playButton,
+  infoContainer,
+  iconsContainer,
+} = styles
 
 export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs, genres }) => {
   const songsData = useGetSongs({
@@ -11,64 +21,47 @@ export const ArtistInfo: FC<Artist> = ({ name, albums, image, popularity, songs,
   })
 
   const { newPlaylist } = useManageMusicPlayer()
-
+  const formatGenres = new Intl.ListFormat('es').format(genres)
 
   return (
-    <div style={{
-      display: 'flex',
-      width: '100%',
-      height: '250px',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <div style={{
-        borderRadius: '100%',
-        overflow: 'hidden',
-        margin: '10px',
-        height: '150px',
-        minWidth: '150px',
-        width: '150px',
-      }}>
+    <div className={container} >
+      <div className={imageContainer} >
         {/*eslint-disable-next-line @next/next/no-img-element*/}
-        <img src={image} alt="" style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-        }} />
+        <img src={image} alt="" />
       </div>
       <div>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
+        <div className={headerContainer} >
           <h1>{name}</h1>
-          <div style={{
-            display: 'flex',
-          }}>
-            <Link href={`/`}>
-              <a>Home</a>
-            </Link>
+          <div className={iconsContainer} >
             <SearchBar
               items={songsData ?? []}
               ItemContainer={SongSearchBarItem}
               propToLookingFor={'name'}
             />
-
+            <Link href={`/`}>
+              <a><Home fill='var(--text-primary-color)' /> </a>
+            </Link>
           </div>
         </div>
-        <Rating name="read-only" value={Number(popularity) / 20} readOnly precision={0.1} />
-        <div></div>
+        <Rating
+          name="read-only"
+          value={Number(popularity) / 20}
+          readOnly
+          precision={0.1}
+        />
         <button
           onClick={() => songsData && newPlaylist(songsData)}
-        >Reproducir Artista</button>
-        <div></div>
-        <span>Álbumes: {albums}</span>
-        <div></div>
-        <span>Canciones: {songs}</span>
-        <div></div>
-        <span>Géneros: {genres.join(', ')}</span>
+          className={playButton}
+        >
+          Reproducir Artista
+        </button>
+        <div className={infoContainer}>
+          <span>Álbumes: {albums}</span>
+          <span>Canciones: {songs}</span>
+          <span>
+            Géneros: {formatGenres.replace(/_/g, ' ')}
+          </span>
+        </div>
       </div>
     </div>
   )

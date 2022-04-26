@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           height: '85vh',
           overflowY: 'scroll',
           padding: '10px',
+          backgroundColor: 'var(--background-primary)',
         }}>
           <Component {...pageProps} />
         </main>

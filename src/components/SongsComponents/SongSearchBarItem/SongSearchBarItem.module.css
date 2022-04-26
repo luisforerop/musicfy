@@ -1,0 +1,37 @@
+.container {
+  color: var(--text-primary-color);
+  background-color: var(--background-primary-contrast);
+  margin: 5px 0;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: default;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.button {
+  background-color: transparent;
+  border: 1px solid var(--text-primary-color);
+  outline: none;
+  height: 30px;
+  cursor: pointer;
+  padding: 0px 7px;
+  border-radius: 50px;
+  margin: 5px 0;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary-color);
+}
+
+.button > div {
+  min-width: 20px;
+  display: flex;
+  height: 20px;
+}

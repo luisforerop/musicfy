@@ -15,6 +15,14 @@ a {
   box-sizing: border-box;
 }
 
+h1 {
+  color: var(--text-primary-color);
+}
+
+h2, h3 {
+  color: var(--text-secondary-color);
+}
+
 :root {
   --primary-color: #181F29;
   --secondary-color: #0070f3;

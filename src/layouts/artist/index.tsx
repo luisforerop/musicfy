@@ -1,6 +1,13 @@
 import { AlbumCard, ArtistInfo } from '@components'
 import { useMusicfyContext } from '@context'
 import { useRouter } from 'next/router'
+import styles from './Artist.module.css'
+
+const {
+  albumsContainer,
+  albumContainer,
+} = styles
+
 
 export const Artist = () => {
   const { query } = useRouter()
@@ -20,22 +27,9 @@ export const Artist = () => {
       padding: '0 200px',
     }}>
       <ArtistInfo  {...artistData} />
-      <ul style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridColumnGap: '10px',
-        gridRowGap: '20px',
-        width: '100%',
-        margin: '0',
-        padding: '10px',
-        justifyContent: 'center',
-      }}>
+      <ul className={albumsContainer} >
         {artistAlbums?.map((album) => (
-          <li key={album.id} style={{
-            listStyle: 'none',
-            display: 'flex',
-            justifyContent: 'center',
-          }} >
+          <li key={album.id} className={albumContainer} >
             <AlbumCard {...album} />
           </li>
         ))}
